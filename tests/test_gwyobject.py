@@ -1,6 +1,7 @@
 import os
 import pytest
 import gwyfile
+from gwyfile.objects import GwyContainer
 
 
 @pytest.fixture(scope="module")
@@ -24,3 +25,7 @@ def test_datafield(test_data):
 def test_tofile(test_data, tmpdir):
     filename = str(tmpdir.join('output.gwy'))
     test_data.tofile(filename)
+
+obj = GwyContainer("test").fromnrrd("tests\\3Dcube.nhrd")
+
+obj.tofile("tests\\3Dcube.gwy")

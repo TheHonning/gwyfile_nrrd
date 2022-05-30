@@ -42,6 +42,8 @@ channel:
 
     # Load a Gwyddion file into memory
     obj = gwyfile.load('test.gwy')
+    # or create a Gwy Object from a nrrd / nhrd file
+    obj_nrrd = GwyContainer("Example_name").fromnnrrd("tests\\3Dcube.nhrd")
     # Return a dictionary with the datafield titles as keys and the
     # datafield objects as values.
     channels = gwyfile.util.get_datafields(obj)

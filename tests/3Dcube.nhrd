@@ -1,0 +1,13 @@
+NRRD0004
+content: Z(I, V)
+type: double
+endian: little
+dimension: 3
+sizes: 500 499 19
+axis mins: 0.000000e+000 0.000000e+000 12.000000e-003
+axis maxs: 3.500000e-009 3.500000e-009 30.000000e-003
+labels: "X", "Y", "U"
+units: "m" "m" "V"
+sampleunits: m
+encoding: raw
+datafile: 3Dcube.nhrd.raw
