@@ -22,7 +22,8 @@ Installation
 
 .. code-block:: console
 
-    $ pip install gwyfile
+    $ cd <your_path>/gwyfile_nrrd
+    $ pip install -e ./
 
 
 Usage
