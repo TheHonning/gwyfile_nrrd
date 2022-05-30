@@ -25,5 +25,5 @@ setup(
     keywords='gwyddion file format',
     platforms='any',
     license='MIT',
-    install_requires=['numpy', 'six'],
+    install_requires=['numpy', 'six', "pynrrd"],
 )
