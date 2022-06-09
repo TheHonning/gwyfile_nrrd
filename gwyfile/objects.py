@@ -6,8 +6,10 @@ for a specification of Gwyddion native data files.
 Revision 14-Jan-2021: added GwySurface 
 Revision 29-Jan-2021: added GwyBrick, GwyGraphModel, GwyGraphCurveModel
 """
+from msilib.schema import Error
 import struct
 from collections import OrderedDict
+from types import ClassMethodDescriptorType
 import numpy as np
 
 from six import BytesIO, string_types
@@ -125,7 +127,7 @@ class GwyObject(OrderedDict):
         """
         data, header = nrrd.read(file)
         obj = GwyContainer()
-        obj["/brick/0"]= GwyBrick(data.astype(float), xres=header["sizes"][0], yres=header["sizes"][1] ,zres=header["sizes"][2], 
+        obj["/brick/0"]= GwyBrick(data.astype(float).flatten(), xres=header["sizes"][0], yres=header["sizes"][1] ,zres=header["sizes"][2], 
                                     xoff=0.0, yoff=0.0, zoff=0.0, 
                                     si_unit_x=GwySIUnit(unitstr=header["units"][0]),
                                     si_unit_y=GwySIUnit(unitstr=header["units"][1]),
@@ -136,10 +138,31 @@ class GwyObject(OrderedDict):
         except:
             obj["/brick/0/title"]="NRRD Import"
         try:
-            obj["/brick/0/preview"]=GwyDataField(data[:][:][0], xoff=0.0, yoff=0.0, si_unit_xy=header["units"][0], si_unit_z=header["units"][2])
+            obj["/brick/0/preview"]=GwyDataField(data[:][:][0].flatten(), xoff=0.0, yoff=0.0, xres=header["sizes"][0], yres=header["sizes"][1], si_unit_xy=header["units"][0], si_unit_z=header["units"][2])
         except:
             pass
         return obj
+    
+    @classmethod
+    def fromdata(cls, data, title="Narray Import"):
+        """
+        Trys to create a GwyObject from an numpy Array
+        in Testing
+
+        Parameters
+        ----------
+        data: 3D numpy Array (x, y, z)
+        """
+        if data.ndim == 3:
+            obj = GwyContainer()
+            obj["/brick/0"] = GwyBrick(data.astype(float).flatten(), xres=data.shape[0], yres=data.shape[1] ,zres=data.shape[2], 
+                                    xoff=0.0, yoff=0.0, zoff=0.0)
+            obj["/brick/0/title"]=title
+            obj["/brick/0/preview"]=GwyDataField(data[:][:][0].flatten(), xres=data.shape[0], yres=data.shape[1])
+        else:
+            raise ValueError("The Numpy array must have 3 dimensions, yours has: ", data.ndim)
+        
+
 
         
         
