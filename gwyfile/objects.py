@@ -159,6 +159,7 @@ class GwyObject(OrderedDict):
                                     xoff=0.0, yoff=0.0, zoff=0.0)
             obj["/brick/0/title"]=title
             obj["/brick/0/preview"]=GwyDataField(data[:][:][0].flatten(), xres=data.shape[0], yres=data.shape[1])
+            return obj
         else:
             raise ValueError("The Numpy array must have 3 dimensions, yours has: ", data.ndim)
         
