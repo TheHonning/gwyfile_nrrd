@@ -144,7 +144,7 @@ class GwyObject(OrderedDict):
         return obj
     
     @classmethod
-    def fromdata(cls, data, title="Narray Import"):
+    def fromdata(cls, data, title="Ndarray Import"):
         """
         Trys to create a GwyObject from an numpy Array
         in Testing
