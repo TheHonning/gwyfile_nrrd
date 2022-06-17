@@ -29,3 +29,5 @@ def test_tofile(test_data, tmpdir):
 obj = GwyContainer("test").fromnrrd("tests\\3Dcube.nhrd")
 
 obj.tofile("tests\\3Dcube.gwy")
+
+#This is a test
